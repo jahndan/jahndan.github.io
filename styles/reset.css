@@ -1,0 +1,426 @@
+/* This is a bunch of CSS reset styles, which are applied globally as more sensible defaults. */
+
+@layer reset {
+  /* reset box-sizing to border-box for all elements */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+    text-decoration-thickness: var(--thick-0) !important;
+    transition-property: color, background-color, border-color;
+    transition-duration: 20ms;
+    transition-timing-function: ease;
+  }
+
+  /* fix scroll behavior for links using /some-page#header-id syntax */
+  [id] {
+    scroll-margin-top: 64px;
+  }
+
+  @media not print {
+    :focus-visible {
+      border-radius: var(--radius-1);
+      outline: var(--thick-0) solid var(--color-p3);
+      outline-offset: 2px;
+    }
+
+    ::selection {
+      background-color: var(--select-bg);
+      color: var(--color-max);
+      text-shadow: var(--select-shadow);
+    }
+
+    .dark {
+      color-scheme: dark;
+    }
+  }
+
+  body {
+    line-height: 1.44;
+    font-weight: 450;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    * {
+      scrollbar-color: var(--color-n3) rgba(none none none / 0);
+    }
+  }
+  @media not print {
+    body {
+      *:hover {
+        scrollbar-color: var(--color-n5) rgba(none none none / 0);
+      }
+    }
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg,
+  iframe {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  main {
+    z-index: 0;
+    max-width: 800px;
+    padding: 48px 32px;
+    margin: 0 auto;
+    font-family: var(--font-sans);
+    color: var(--color-n8);
+    background-color: var(--color-n0);
+    box-shadow: var(--shadow);
+  }
+
+  @media (min-width: 800px) {
+    main {
+      border-left: var(--thick-0) solid var(--color-n4);
+      border-right: var(--thick-0) solid var(--color-n4);
+    }
+  }
+
+  main {
+    *:first-child {
+      margin-top: 0;
+    }
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* paragraph styles */
+
+  p {
+    text-wrap: pretty;
+    text-align: justify;
+    /* hyphens: auto; */
+    margin-top: var(--paragraph-spacing);
+    margin-bottom: var(--paragraph-spacing);
+  }
+
+  /* heading styles */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    --heading-spacing: var(--block-spacing);
+    text-wrap: balance;
+    color: var(--color-p8);
+  }
+  @media not print {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      background: linear-gradient(
+        in oklch to right,
+        var(--color-p8) 0%,
+        var(--color-s8) 100%
+      );
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  h1 {
+    font-size: 28px;
+    font-family: var(--font-serif);
+    line-height: 1.2;
+    margin-top: var(--heading-spacing);
+    margin-bottom: var(--heading-spacing);
+  }
+  h2 {
+    font-size: 20px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    line-height: 1.24;
+    letter-spacing: -0.015em;
+    margin-top: var(--heading-spacing);
+    margin-bottom: var(--heading-spacing);
+  }
+  h3 {
+    font-size: 18px;
+    font-family: var(--font-sans);
+    font-weight: 550;
+    line-height: 1.28;
+    letter-spacing: -0.0075em;
+    margin-top: var(--heading-spacing);
+    margin-bottom: var(--heading-spacing);
+  }
+  h4 {
+    font-size: 16px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1.32;
+    margin-top: var(--heading-spacing);
+    margin-bottom: var(--heading-spacing);
+  }
+  h5 {
+    font-size: 15px;
+    font-family: var(--font-sans);
+    font-weight: 650;
+    line-height: 1.36;
+    letter-spacing: 0.0075em;
+    margin-top: var(--heading-spacing);
+    margin-bottom: var(--heading-spacing);
+  }
+  h6 {
+    font-size: 14px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.075em;
+    margin-top: var(--heading-spacing);
+    margin-bottom: var(--heading-spacing);
+    font-variant: small-caps;
+  }
+
+  /* basic styles */
+
+  a {
+    color: var(--color-p8);
+  }
+  @media not print {
+    a:hover {
+      color: var(--color-s8);
+    }
+  }
+
+  mark {
+    background-color: oklch(from var(--color-s2) l c h / 0.75);
+    color: var(--color-n9);
+    padding: 0 1px;
+    border-radius: var(--radius-2);
+  }
+
+  del {
+    text-decoration: line-through;
+    color: oklch(from currentColor calc(l * var(--scalar)) c h);
+  }
+
+  small {
+    font-size: 0.75em;
+    color: oklch(from currentColor calc(l * var(--scalar)) c h);
+  }
+
+  sup,
+  sub {
+    font-size: 0.5em;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-n7);
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  /* list styles */
+
+  ul {
+    list-style-type: circle;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ul,
+  ol {
+    padding-left: 32px;
+    margin-top: var(--paragraph-spacing);
+    margin-bottom: var(--paragraph-spacing);
+  }
+  li {
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+
+  /* table styles */
+
+  table {
+    --table-radius: var(--radius-2);
+    font-size: 15px;
+    margin: var(--paragraph-spacing) auto;
+    overflow: scroll;
+    box-shadow: var(--shadow);
+    border: var(--thick-0) solid var(--color-n3);
+    border-radius: var(--table-radius);
+    padding: 2px;
+    td {
+      vertical-align: top;
+      border-radius: var(--table-radius);
+      padding: 4px 6px;
+    }
+  }
+  table:has(th:not(:empty)) {
+    /* headered table styles */
+    th {
+      font-size: 0.875em;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      text-transform: uppercase;
+      border-radius: var(--table-radius);
+      padding: 4px 6px;
+    }
+  }
+  table:not(:has(th:not(:empty))) {
+    /* headerless table styles */
+    thead {
+      display: none;
+    }
+  }
+  @media not print {
+    th:hover,
+    td:hover {
+      background-color: oklch(from var(--color-p1) l c h / 0.5);
+    }
+  }
+
+  /* other styles */
+
+  img[pixelated] {
+    image-rendering: pixelated;
+  }
+
+  img {
+    max-height: 90svh;
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  iframe {
+    margin: auto;
+  }
+
+  figure {
+    margin-top: var(--block-spacing);
+    margin-bottom: var(--block-spacing);
+    border: var(--thick-0) solid var(--color-n3);
+    border-radius: var(--radius-3);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+
+    figcaption {
+      color: var(--color-n7);
+      font-size: 0.875em;
+      text-align: center;
+      padding: 6px 8px;
+      border-top: var(--thick-0) solid var(--color-n3);
+    }
+  }
+
+  blockquote {
+    margin-top: var(--block-spacing);
+    margin-bottom: var(--block-spacing);
+    border-left: var(--thick-2) solid var(--color-p5);
+    padding: 0 16px;
+    box-shadow: var(--shadow);
+
+    font-style: italic;
+    color: var(--color-n8);
+
+    em {
+      font-style: normal;
+    }
+  }
+
+  details {
+    margin-top: var(--block-spacing);
+    margin-bottom: var(--block-spacing);
+  }
+
+  /* pre/code styles */
+
+  code {
+    font-family: var(--font-mono);
+    font-feature-settings: "ss05";
+    font-size: 0.825rem;
+    color: var(--color-n8);
+    background-color: oklch(from var(--color-n1) l c h / 0.75);
+    border-radius: var(--radius-1);
+    padding: 2px 2px;
+    white-space: nowrap;
+  }
+
+  pre {
+    font-family: var(--font-mono);
+    font-feature-settings: "ss05";
+    font-size: 0.825rem;
+    line-height: 1.4;
+    color: var(--color-n8);
+    border: var(--thick-0) solid var(--color-n5);
+    border-radius: var(--radius-3);
+    padding: 24px;
+    margin-top: var(--block-spacing);
+    margin-bottom: var(--block-spacing);
+    overflow-x: auto;
+    tab-size: 2;
+
+    code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-size: inherit;
+      white-space: pre;
+      color: inherit;
+    }
+  }
+
+  /* shiki shenanigans */
+  .astro-code {
+    background-color: oklch(from var(--color-min) l c h / 0.25);
+  }
+  .astro-code span {
+    background: none;
+  }
+
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-light);
+    font-weight: var(--shiki-light-font-weight);
+    text-decoration: var(--shiki-light-text-decoration);
+  }
+
+  @media not print {
+    .dark {
+      .astro-code,
+      .astro-code span {
+        color: var(--shiki-dark);
+        font-weight: var(--shiki-dark-font-weight);
+        text-decoration: var(--shiki-dark-text-decoration);
+      }
+    }
+  }
+}

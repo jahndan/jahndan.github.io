@@ -1,0 +1,60 @@
+name: Deploy Typst to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Typst
+        uses: typst-community/setup-typst@v4
+        with:
+          typst-version: 'latest'
+
+      - name: Create output directory
+        run: mkdir public-site
+
+      - name: Copy CSS styles to output
+        run: cp -r styles public-site/styles
+
+      # - name: Copy other assets to output
+      #   run: cp -r assets public-site/assets
+
+      - name: Compile all Typst files to HTML
+        env:
+          TYPST_FEATURES: html
+        run: |
+          cd pages; find . -name "*.typ" -not -path "*/.*" | while read -r file
+          do
+            [ -e "$file" ] || break
+            filename=$(basename "$file" .typ)
+            echo "Compiling $file..."
+            typst compile --root .. "$file" "../public-site/${filename}.html"
+          done
+
+      - name: Upload site artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public-site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
