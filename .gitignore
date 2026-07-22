@@ -1,2 +1,5 @@
+# macOS junk
+.DS_Store
+
 # editor stuff
 .helix/

@@ -5,7 +5,6 @@
 
   html.link(rel: "stylesheet", href: "/styles/global.css")
   html.link(rel: "stylesheet", href: "/styles/reset.css")
-  html.link(rel: "stylesheet", href: "/styles/math.css")
 
   html.main(doc)
 }
