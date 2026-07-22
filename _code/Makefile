@@ -21,12 +21,27 @@ ifdef DEBUG
 CFLAGS += -g -fsanitize=address -fsanitize=undefined
 endif
 
-## targets
-default: $(LIBOBJECTS)
+## bookkeeping targets
+.PHONY: help clean libs
+help:
+	@printf "Bookkeeping targets:\n"
+	@printf "\thelp: Prints this message\n"
+	@printf "\tclean: Cleans up build artifacts\n"
+	@printf "\n"
+	@printf "Build targets:\n"
+	@printf "\tlibs: Builds all libraries\n"
+	@for f in src/*.c; do \
+		base=$${f#src/}; \
+		base=$${base%.c}; \
+		printf "\t%s: Builds corresponding executable\n" "$$base"; \
+	done
+	@printf "\n"
 
-.PHONY: clean
 clean:
 	$(RM) -r $(BUILD)
+
+## build targets
+libs: $(LIBOBJECTS)
 
 ## objects from c source
 $(BUILD)/%.o: $(SRC)/%.c

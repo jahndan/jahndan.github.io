@@ -3,16 +3,19 @@
 
 #include "lib/math/vec.h"
 
+#define VEC_SIZE 10
+
 int main() {
   struct vec_dyn v;
-  vec_dyn_init(&v, 10);
+  vec_dyn_init(&v, VEC_SIZE);
+  defer { vec_dyn_kill(&v); }
 
   // inspect struct
   printf("vec_dyn { .length = %zu, .data = %p }\n", v.length, (void *)v.data);
 
-  // setup buffer
+  // setup buffer of same size
   static_assert(sizeof(uint64_t) == sizeof(double));
-  uint64_t buf[10];
+  uint64_t buf[VEC_SIZE];
 
   // open random source
   FILE *random = fopen("/dev/urandom", "rb");
